@@ -1,7 +1,6 @@
-import DoubleSelect from './DoubleSelect.vue'
+import Vue from 'vue'
+import App from './examples/App'
 
-DoubleSelect.install = function (Vue, options) {
-    Vue.component(DoubleSelect.name, DoubleSelect)
-}
-
-export default DoubleSelect
+new Vue({
+  render: h => h(App)
+}).$mount('#app')

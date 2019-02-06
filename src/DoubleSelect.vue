@@ -9,6 +9,7 @@
                 v-model="leftSearch"
                 @keyup="search($event.target.value, 'left')"
                 v-if="searchable">
+            
             <ul>
                 <li v-for="(item, index) in list.left" :key="index" @click="addItem(item, index)">
                     {{ item[textField] }} 
@@ -76,10 +77,6 @@
                 },
                 rightSearch: '',
                 leftSearch: '',
-                originalItems: {
-                    left: [],
-                    right: [],
-                },
             } 
         },
         created(){
@@ -96,32 +93,43 @@
                 this.list.right.splice(index, 1);
             },
             search(text, position){
-                alert('ta bugado');
                 var self = this;
                 if(!text){
-                    console.log(this.getUnselectedItems());
-                    this.list[position] = (position == 'left') ? this.getUnselectedItems() : this.list.right;
+                    this.list[position] = (position == 'left') ? this.getUnselectedItems() : this.getSelectedItems();
                 } else{
-                    // this.list[position] = (position == 'left') ? this.getUnselectedItems() : this.list.right;
                     this.list[position] = this.list[position].filter(function(result){
                         return result[self.textField].toLowerCase().includes(text.toLowerCase());
                     })
                 }
             },
-            getUnselectedItems(){
+            getUnselectedItems() {
                 var self = this;
-                let data = [];
-                this.items.forEach(function(leftItem, index){
+                let data = this.items;
+                data.forEach(function(leftItem, index){
                     self.list.right.forEach(function(rightItem){
-                        if(leftItem.id !== rightItem.id){
-                            data[index] = leftItem;
+                        if(leftItem.id == rightItem.id){
+                            data.splice(index, 1);
                         }
                     })
                 })
 
-                return data;
-            }
-            
+                return this.items;
+            },
+            getSelectedItems() {
+                var self = this;
+                let items = this.items;
+                let selectedItems = this.selectedItems;
+
+                selectedItems.forEach(function(selectedItem, index){
+                    items.forEach(function(item){
+                        if(item.id == selectedItem.id){
+                            selectedItems.splice(index, 1);
+                        }
+                    })
+                }) 
+
+                return selectedItems;
+            },
         }
     }
 </script>
