@@ -1,14 +1,14 @@
 {
   "name": "vue-double-select",
   "description": "MultiSelect with two lists for Vue.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "author": "Vinicius Aquino <viniciussvl@hotmail.com>",
   "main": "src/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vue-cli-service serve src/main.js",
+    "build": "vue-cli-service build"
   },
   "keywords": [
     "javascript",

@@ -72,16 +72,14 @@
         data() {
             return {
                 list: {
-                    left: [],
-                    right: [],
+                    left: this.items,
+                    right: this.selectedItems,
                 },
                 rightSearch: '',
                 leftSearch: '',
             } 
         },
         created(){
-            this.list.left = this.items;
-            this.list.right = this.selectedItems;
         },
         methods: {
             addItem(item, index) {

@@ -65,4 +65,12 @@ After you have installed the package and imported it, call the component's html 
 ></double-select>
 ```
 
+## Contributing
 
+To contribute to this project you can clone the repository and run the npm run dev command to test.
+
+```javascript
+npm install
+
+npm run dev
+```

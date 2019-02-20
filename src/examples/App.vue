@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <h1>Vue Double Select</h1>
-
+        
       <double-select 
         :items="cryptocurrencies"
         :searchable="true"
