@@ -2,9 +2,10 @@
     <div class="">
         <div class="left-select">
             <input 
+                class="searchable"
                 type="text" 
                 :placeholder="searchablePlaceholder" 
-                :class="searchableClass" 
+                :class="'searchable ' + searchableClass" 
                 name="leftSearch" 
                 v-model="leftSearch"
                 @keyup="search($event.target.value, 'left')"
@@ -19,9 +20,10 @@
 
         <div class="right-select">
             <input 
+
                 type="text" 
                 :placeholder="searchablePlaceholder" 
-                :class="searchableClass" 
+                :class="'searchable ' + searchableClass" 
                 name="rightSearch" 
                 v-model="rightSearch"
                 @keyup="search($event.target.value, 'right')"
@@ -37,6 +39,7 @@
 </template>
 
 <script>
+
     export default {
         name: 'DoubleSelect',
         props: {
@@ -80,6 +83,15 @@
             } 
         },
         created(){
+            var self = this;
+            if(this.selectedItems){
+                this.selectedItems.forEach(function(selectedItem, index){
+                    let pos = self.findWithAttr(self.list.left, 'id', selectedItem.id);
+                    if(pos >= 0){
+                        self.list.left.splice(pos, 1);
+                    }
+                }) 
+            }
         },
         methods: {
             addItem(item, index) {
@@ -128,6 +140,14 @@
 
                 return selectedItems;
             },
+            findWithAttr(array, attr, value) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i][attr] === value) {
+                        return i
+                    }
+                }
+                return -1
+            }
         }
     }
 </script>
@@ -139,6 +159,7 @@
         height: 250px;
         overflow: auto;
         border: 1px solid rgba(153, 153, 153, 0.2);
+        width: 100%;
     }
 
     ul li{
@@ -154,14 +175,22 @@
 
     .left-select{
         float: left;
-        margin-right: 50px;
     }
 
     .right-select{
+        margin-left: 45px;
         float: left;
     }
 
     .left-select, .right-select{
         width: 30%;
     }
+
+    .searchable{
+        border: 1px solid #ddd;
+        padding: 10px;
+        width: 100%;
+    }
+
+
 </style>

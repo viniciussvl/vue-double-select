@@ -4,6 +4,7 @@
         
       <double-select 
         :items="cryptocurrencies"
+        :selectedItems="selectedCurrencies"
         :searchable="true"
         text-field="name"
         value-field="id"
@@ -57,6 +58,20 @@ export default {
                     id: 9,
                     name: 'Nano'
                 }
+            ],
+            selectedCurrencies: [
+                {
+                    id: 1,
+                    name: 'Bitcoin'
+                },
+                {
+                    id: 2,
+                    name: 'Ethereum'
+                },
+                {
+                    id: 3,
+                    name: 'Ripple'
+                },
             ],
         }
     },

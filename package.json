@@ -1,7 +1,7 @@
 {
   "name": "vue-double-select",
   "description": "MultiSelect with two lists for Vue.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "author": "Vinicius Aquino <viniciussvl@hotmail.com>",
   "main": "src/index.js",
@@ -18,7 +18,9 @@
     "vue-multi-select"
   ],
   "dependencies": {
-    "vue": "2.6.2"
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.16",
+    "vue": "^2.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.5",
