@@ -1,4 +1,3 @@
-
 import DoubleSelect from './DoubleSelect.vue'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'

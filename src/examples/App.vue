@@ -1,8 +1,10 @@
 <template>
   <div class="container">
       <h1>Vue Double Select</h1>
+      <button type="button" @click="resetItems()">Reset Items</button><br><br>
         
-      <double-select 
+      <double-select
+        v-if="toggle"
         :items="cryptocurrencies"
         :selectedItems="selectedCurrencies"
         :searchable="true"
@@ -21,6 +23,7 @@ export default {
     },
     data () {
         return {
+            toggle: true,
             cryptocurrencies: [
                 {
                     id: 1,
@@ -75,6 +78,26 @@ export default {
             ],
         }
     },
+    methods: {
+        resetItems(){
+            this.toggle = this.toggle ? false : true;
+            this.selectedCurrencies = [];
+            this.cryptocurrencies = [
+                {
+                    id: 1,
+                    name: 'Bitcoin'
+                },
+                {
+                    id: 2,
+                    name: 'USD Coin'
+                },
+                {
+                    id: 3,
+                    name: 'Ratomorto Coin'
+                },
+            ];
+        }
+    }
 }
 </script>
 

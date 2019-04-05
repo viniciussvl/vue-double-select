@@ -4,6 +4,8 @@
 
 A MultiSelect with two lists for Vue.js, searchable, action buttons.
 
+![vue-double-select](https://i.imgur.com/rH4PiUH.png)
+
 ## Demo
 
 See [demo](http://viniciussvl.github.io/vue-double-select/example).
