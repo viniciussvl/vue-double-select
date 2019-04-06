@@ -2,9 +2,9 @@
 
 [![npm](https://img.shields.io/npm/v/vue-double-select.svg)](https://www.npmjs.com/package/vue-double-select)
 
-A MultiSelect with two lists for Vue.js, searchable, action buttons.
+A MultiSelect with two lists for Vue.js, searchable, sorting and action buttons.
 
-![vue-double-select](https://i.imgur.com/rH4PiUH.png)
+![vue-double-select](https://i.imgur.com/g1mSkm7.png)
 
 ## Demo
 
@@ -46,6 +46,10 @@ components: { DoubleSelect }
 | textField           | String | text             | Text field |
 | searchable           | Boolean | false             | If enabled, it will display search fields for lists. |
 | searchablePlaceholder | String | Search | Placeholder of inputs search
+| sorteable | Boolean | false | Sort array by property name
+| orderBy | String | id | Property name to sort
+| textItems | String | items | Counter text that is below the left list
+| textSelectedItems | Object | {one: 'selected item', greaterThanOne: 'selected items'} | Counter text that is below the right list
 
 ## Events
 
@@ -59,12 +63,15 @@ components: { DoubleSelect }
 After you have installed the package and imported it, call the component's html and pass its properties.
 
 ```html
-<double-select 
+<double-select
   :items="arrayOfItems"
+  :selectedItems="arrayOfSelectedtems"
   :searchable="true"
+  :sorteable="true"
+  :orderBy="'name'"
   text-field="name"
   value-field="id"
-></double-select>
+  ></double-select>
 ```
 
 ## Contributing
