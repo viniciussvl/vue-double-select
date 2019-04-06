@@ -8,6 +8,8 @@
         :items="cryptocurrencies"
         :selectedItems="selectedCurrencies"
         :searchable="true"
+        :sorteable="true"
+        :orderBy="'name'"
         text-field="name"
         value-field="id"
         ></double-select>
@@ -64,6 +66,10 @@ export default {
             ],
             selectedCurrencies: [
                 {
+                    id: 3,
+                    name: 'Ripple'
+                },
+                {
                     id: 1,
                     name: 'Bitcoin'
                 },
@@ -71,10 +77,7 @@ export default {
                     id: 2,
                     name: 'Ethereum'
                 },
-                {
-                    id: 3,
-                    name: 'Ripple'
-                },
+              
             ],
         }
     },

@@ -1,39 +1,49 @@
 <template>
-    <div class="">
-        <div class="left-select">
-            <input 
-                class="searchable"
-                type="text" 
-                :placeholder="searchablePlaceholder" 
-                :class="'searchable ' + searchableClass" 
-                name="leftSearch" 
-                v-model="leftSearch"
-                @keyup="search($event.target.value, 'left')"
-                v-if="searchable">
-            
-            <ul>
-                <li v-for="(item, index) in list.left" :key="index" @click="addItem(item, index)">
-                    {{ item[textField] }} 
-                </li>
-            </ul>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="left-select">
+                <input 
+                    class="searchable"
+                    type="text" 
+                    :placeholder="searchablePlaceholder" 
+                    :class="'searchable ' + searchableClass" 
+                    name="leftSearch" 
+                    v-model="leftSearch"
+                    @keyup="search($event.target.value, 'left')"
+                    v-if="searchable">
+                
+                <ul>
+                    <li v-for="(item, index) in list.left" :key="index" @click="addItem(item, index)">
+                        {{ item[textField] }} 
+                    </li>
+                </ul>
+                <p class="text-selected-items"><strong>{{ list.left.length }}</strong> {{ textItems }}</p>
+            </div>
         </div>
 
-        <div class="right-select">
-            <input 
+        <div class="switch">
+            <img src="../public/switch.png" alt="Switch">
+        </div>
 
-                type="text" 
-                :placeholder="searchablePlaceholder" 
-                :class="'searchable ' + searchableClass" 
-                name="rightSearch" 
-                v-model="rightSearch"
-                @keyup="search($event.target.value, 'right')"
-                v-if="searchable">
+        <div class="col-md-5">
+            <div class="right-select">
+                <input 
+                    type="text" 
+                    :placeholder="searchablePlaceholder" 
+                    :class="'searchable ' + searchableClass" 
+                    name="rightSearch" 
+                    v-model="rightSearch"
+                    @keyup="search($event.target.value, 'right')"
+                    v-if="searchable">
 
-            <ul>
-                <li v-for="(item, index) in list.right" :key="index" @click="removeItem(item, index)">
-                    {{ item[textField] }}
-                </li>
-            </ul>
+                <ul>
+                    <li v-for="(item, index) in list.right" :key="index" @click="removeItem(item, index)">
+                        {{ item[textField] }}
+                    </li>
+                </ul>
+
+                <p class="text-selected-items"><strong>{{ list.right.length }}</strong> {{ textSelectedItems[list.right.length == 1 ? 'one' : 'greaterThanOne'] }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -70,6 +80,25 @@
             searchableClass: {
                 type: String,
                 default: 'form-control mb-2'
+            },
+            textItems: {
+                type: String,
+                default: 'items'
+            },
+            textSelectedItems: {
+                type: Object,
+                default: function() { return {
+                    one: 'selected item',
+                    greaterThanOne: 'selected items'
+                } }
+            },
+            sorteable: {
+                type: Boolean,
+                default: false,
+            },
+            orderBy: {
+                type: String,
+                default: 'id' 
             }
         },
         data() {
@@ -92,21 +121,31 @@
                     }
                 }) 
             }
+
+            if(this.sorteable){
+                this.list.left = this.sort(this.list.left, this.orderBy, 0);
+                this.list.right = this.sort(this.list.right, this.orderBy, 0);
+            }
         },
         methods: {
             addItem(item, index) {
                 this.list.right.push(item);
                 this.list.left.splice(index, 1);
+
+                // sort
+                this.list.right = this.sort(this.list.right, this.orderBy, 0);
             },
             removeItem(item, index){
                 this.list.left.push(item);
                 this.list.right.splice(index, 1);
+
+                // sort
+                this.list.left = this.sort(this.list.left, this.orderBy, 0);
             },
             search(text, position){
                 var self = this;
-                if(!text){
-                    this.list[position] = (position == 'left') ? this.getUnselectedItems() : this.getSelectedItems();
-                } else{
+                this.list[position] = (position == 'left') ? this.getUnselectedItems() : this.getSelectedItems();
+                if(text){
                     this.list[position] = this.list[position].filter(function(result){
                         return result[self.textField].toLowerCase().includes(text.toLowerCase());
                     })
@@ -147,7 +186,30 @@
                     }
                 }
                 return -1
-            }
+            },
+            sort(items, property, direction) {
+                function compare(a, b) {
+                    if(!a[property] && !b[property]) {
+                        return 0;
+                    } else if(a[property] && !b[property]) {
+                        return -1;
+                    } else if(!a[property] && b[property]) {
+                        return 1;
+                    } else {
+                        const value1 = a[property].toString().toUpperCase(); // ignore upper and lowercase
+                        const value2 = b[property].toString().toUpperCase(); // ignore upper and lowercase
+                        if (value1 < value2) {
+                        return direction === 0 ? -1 : 1;
+                        } else if (value1 > value2) {
+                        return direction === 0 ? 1 : -1;
+                        } else {
+                        return 0;
+                        }
+                    }
+                }
+    
+                return items.sort(compare);
+            } 
         }
     }
 </script>
@@ -156,10 +218,11 @@
     ul{
         list-style-type: none;
         padding: 0;
-        height: 250px;
+        height: 270px;
         overflow: auto;
         border: 1px solid rgba(153, 153, 153, 0.2);
         width: 100%;
+        margin: 5px 0;
     }
 
     ul li{
@@ -173,18 +236,6 @@
         color: #fff;
     }
 
-    .left-select{
-        float: left;
-    }
-
-    .right-select{
-        margin-left: 45px;
-        float: left;
-    }
-
-    .left-select, .right-select{
-        width: 30%;
-    }
 
     .searchable{
         border: 1px solid #ddd;
@@ -192,5 +243,26 @@
         width: 100%;
     }
 
+    .text-selected-items{
+        margin: 0;
+        padding: 0;
+    }
+
+    .switch{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    } 
+
+
+    /* Responsive */
+    @media (max-width: 768px) 
+    {
+        .switch{
+           text-align: center;
+           margin: 0 auto;
+           padding: 15px 0;
+        }    
+    }
 
 </style>
