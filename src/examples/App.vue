@@ -9,6 +9,7 @@
         :selectedItems="selectedCurrencies"
         :searchable="true"
         :sorteable="true"
+        :limitSelectedItems="4"
         :orderBy="'name'"
         text-field="name"
         value-field="id"

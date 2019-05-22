@@ -99,6 +99,10 @@
             orderBy: {
                 type: String,
                 default: 'id' 
+            },
+            limitSelectedItems: {
+                type: Number,
+                default: 999
             }
         },
         data() {
@@ -129,6 +133,12 @@
         },
         methods: {
             addItem(item, index) {
+                let totalItems = this.list.right.length;
+                if(totalItems >= this.limitSelectedItems){
+                    return false;
+                }
+
+
                 this.list.right.push(item);
                 this.list.left.splice(index, 1);
 

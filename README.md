@@ -50,6 +50,7 @@ components: { DoubleSelect }
 | orderBy | String | id | Property name to sort
 | textItems | String | items | Counter text that is below the left list
 | textSelectedItems | Object | {one: 'selected item', greaterThanOne: 'selected items'} | Counter text that is below the right list
+| limitSelectedItems | Number | 999 | Limit items that the user can select
 
 ## Events
 
@@ -66,6 +67,7 @@ After you have installed the package and imported it, call the component's html 
 <double-select
   :items="arrayOfItems"
   :selectedItems="arrayOfSelectedtems"
+  :limitSelectedItems="10"
   :searchable="true"
   :sorteable="true"
   :orderBy="'name'"
