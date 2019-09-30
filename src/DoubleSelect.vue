@@ -138,7 +138,6 @@
                     return false;
                 }
 
-
                 this.list.right.push(item);
                 this.list.left.splice(index, 1);
 
@@ -148,6 +147,9 @@
             removeItem(item, index){
                 this.list.left.push(item);
                 this.list.right.splice(index, 1);
+
+                this.list.right = this.getSelectedItems();
+                this.rightSearch = null;
 
                 // sort
                 this.list.left = this.sort(this.list.left, this.orderBy, 0);
