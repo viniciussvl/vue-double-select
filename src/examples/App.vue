@@ -13,6 +13,7 @@
         :orderBy="'name'"
         text-field="name"
         value-field="id"
+        v-on:selectedListModified="testEvent"
         ></double-select>
   </div>
 </template>
@@ -100,6 +101,9 @@ export default {
                     name: 'Ratomorto Coin'
                 },
             ];
+        },
+        testEvent(list) {
+            console.log(list)
         }
     }
 }

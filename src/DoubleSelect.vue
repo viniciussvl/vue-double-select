@@ -143,6 +143,8 @@
 
                 // sort
                 this.list.right = this.sort(this.list.right, this.orderBy, 0);
+                this.$emit('itemAdded', this.list.right)
+                this.$emit('selectedListModified', this.list.right)
             },
             removeItem(item, index){
                 this.list.left.push(item);
@@ -153,6 +155,8 @@
 
                 // sort
                 this.list.left = this.sort(this.list.left, this.orderBy, 0);
+                this.$emit('itemRemoved', this.list.left)
+                this.$emit('selectedListModified', this.list.right)
             },
             search(text, position){
                 var self = this;
