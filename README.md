@@ -56,7 +56,10 @@ components: { DoubleSelect }
 
 | Name                   | Description                                                              |
 |------------------------|--------------------------------------------------------------------------|
-|                |                                          |
+| itemAdded              | When an item has been added to the list  |
+| itemRemoved            | When an item has been removed from the list  |
+| selectedListModified   | When the selected list has been modified  |
+
 
 ## How to use
 
