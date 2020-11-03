@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-md-5">
             <div class="left-select">
-                <input 
+                <input
+                    :disabled="disabled"
                     class="searchable"
                     type="text" 
                     :placeholder="searchablePlaceholder" 
@@ -12,8 +13,8 @@
                     @keyup="search($event.target.value, 'left')"
                     v-if="searchable">
                 
-                <ul>
-                    <li v-for="(item, index) in list.left" :key="index" @click="addItem(item, index)">
+                <ul :class="(disabled) ? 'ul-disabled' : null">
+                    <li v-for="(item, index) in list.left" :key="index" @click="addItem(item, index)" :class="(!disabled) ? 'list-hover' : null">
                         {{ item[textField] }} 
                     </li>
                 </ul>
@@ -28,6 +29,7 @@
         <div class="col-md-5">
             <div class="right-select">
                 <input 
+                    :disabled="disabled"
                     type="text" 
                     :placeholder="searchablePlaceholder" 
                     :class="'searchable ' + searchableClass" 
@@ -36,8 +38,8 @@
                     @keyup="search($event.target.value, 'right')"
                     v-if="searchable">
 
-                <ul>
-                    <li v-for="(item, index) in list.right" :key="index" @click="removeItem(item, index)">
+                <ul :class="(disabled) ? 'ul-disabled' : null">
+                    <li v-for="(item, index) in list.right" :key="index" @click="removeItem(item, index)" :class="(!disabled) ? 'list-hover' : null">
                         {{ item[textField] }}
                     </li>
                 </ul>
@@ -103,7 +105,11 @@
             limitSelectedItems: {
                 type: Number,
                 default: 999
-            }
+            },
+            disabled: {
+                type: Boolean,
+                default: false,
+            },
         },
         data() {
             return {
@@ -133,6 +139,10 @@
         },
         methods: {
             addItem(item, index) {
+                if(this.disabled) {
+                    return false
+                }
+
                 let totalItems = this.list.right.length;
                 if(totalItems >= this.limitSelectedItems){
                     return false;
@@ -246,7 +256,11 @@
         border-bottom: 1px solid rgba(153, 153, 153, 0.2);
     }
 
-    ul li:hover{
+    .ul-disabled {
+        background-color: #f5f5f5;
+    }
+
+    .list-hover:hover{
         background: #09f;
         cursor: pointer;
         color: #fff;

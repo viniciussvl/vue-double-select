@@ -51,6 +51,7 @@ components: { DoubleSelect }
 | textItems | String | items | Counter text that is below the left list
 | textSelectedItems | Object | {one: 'selected item', greaterThanOne: 'selected items'} | Counter text that is below the right list
 | limitSelectedItems | Number | 999 | Limit items that the user can select
+| disabled           | Boolean | false             | Disable select |
 
 ## Events
 
@@ -87,4 +88,6 @@ To contribute to this project you can clone the repository and run the npm run d
 npm install
 
 npm run dev
+
+npm publish
 ```
