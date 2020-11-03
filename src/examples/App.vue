@@ -8,6 +8,7 @@
         :items="cryptocurrencies"
         :selectedItems="selectedCurrencies"
         :searchable="true"
+        :disabled="false"
         :sorteable="true"
         :limitSelectedItems="4"
         :orderBy="'name'"
